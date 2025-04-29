@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+int main() {
+    char estado1, estado2;
+    char codigo1[4], codigo2[4];
+    char nome1[50], nome2[50];
+    int populacao1, populacao2;
+    float area1, area2;
+    float pib1, pib2;
+    int turismo1, turismo2;
+
+    printf("_____BEM VINDO AO SUPER TRUNFO_____\n\n");
+
+    printf("__Comece Informando Os Dados Da Carta 01__\n");
+    printf("Digite seu estado: ");
+    scanf(" %c", &estado1);
+    printf("Digite seu codigo: ");
+    scanf("%s", codigo1);
+    printf("Digite o nome da sua cidade: ");
+    scanf("%s", nome1);
+    printf("Digite o numero da populacao: ");
+    scanf("%d", &populacao1);
+    printf("Digite sua area: ");
+    scanf("%f", &area1);
+    printf("Digite seu PIB: ");
+    scanf("%f", &pib1);
+    printf("Digite o numero de pontos turisticos presentes em sua cidade: ");
+    scanf("%d", &turismo1);
+
+    printf("__Agora Insira Os Dados Da Carta 02__\n");
+    printf("Digite seu estado: ");
+    scanf(" %c", &estado2);
+    printf("Digite seu codigo: ");
+    scanf("%s", codigo2);
+    printf("Digite o nome da sua cidade: ");
+    scanf("%s", nome2);
+    printf("Digite o numero da populacao: ");
+    scanf("%d", &populacao2);
+    printf("Digite sua area: ");
+    scanf("%f", &area2);
+    printf("Digite seu PIB: ");
+    scanf("%f", &pib2);
+    printf("Digite o numero de pontos turisticos presentes em sua cidade: ");
+    scanf("%d", &turismo2);
+
+    printf("___DADOS DA CARTA 01___\n\n");
+    printf("Seu estado e: %c\n", estado1);
+    printf("Seu codigo e: %s\n", codigo1);
+    printf("Sua cidade e: %s\n", nome1);
+    printf("O numero da sua populacao e: %d\n", populacao1);
+    printf("O numero da sua area e: %.3f\n", area1);
+    printf("Seu PIB e: %.3f\n", pib1);
+    printf("O numero de pontos turisticos e: %d\n", turismo1);
+
+    printf("___DADOS DA CARTA 02___\n\n");
+    printf("Seu estado e: %c\n", estado2);
+    printf("Seu codigo e: %s\n", codigo2);
+    printf("Sua cidade e: %s\n", nome2);
+    printf("O numero da sua populacao e: %d\n", populacao2);
+    printf("O numero da sua area e: %.3f\n", area2);
+    printf("Seu PIB e: %.3f\n", pib2);
+    printf("O numero de pontos turisticos e: %d\n", turismo2);
+
+    return 0;
+}
