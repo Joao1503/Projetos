@@ -1,23 +1,29 @@
 #include <stdio.h>
 
-int main() {
+int main(){
+
     char estado1, estado2;
-    char codigo1[4], codigo2[4];
-    char nome1[50], nome2[50];
+    char codigo1[4], codigo2[4]; 
+    char nome1[50], nome2[50]; 
     int populacao1, populacao2;
     float area1, area2;
     float pib1, pib2;
     int turismo1, turismo2;
+   
+        
+    //os nomes foram abreviados para não dar muito trabalho para escrever o código//
 
-    printf("_____BEM VINDO AO SUPER TRUNFO_____\n\n");
+    printf("__BEM VINDO AO SUPER TRUNFO__\n\n");
 
-    printf("__Comece Informando Os Dados Da Carta 01__\n");
+    //aqui começa a inserção de dados da carta 1//
+
+    printf("_Comece Informando Os Dados Da Carta 01_\n");
     printf("Digite seu estado: ");
-    scanf(" %c", &estado1);
+    scanf("%c", &estado1);
     printf("Digite seu codigo: ");
-    scanf("%s", codigo1);
+    scanf("%s", codigo1); 
     printf("Digite o nome da sua cidade: ");
-    scanf("%s", nome1);
+    scanf("%s", nome1); 
     printf("Digite o numero da populacao: ");
     scanf("%d", &populacao1);
     printf("Digite sua area: ");
@@ -27,13 +33,16 @@ int main() {
     printf("Digite o numero de pontos turisticos presentes em sua cidade: ");
     scanf("%d", &turismo1);
 
-    printf("__Agora Insira Os Dados Da Carta 02__\n");
+    //aqui começa a inserção da carta 2//
+    printf("_Agora Insira Os Dados Da Carta 02_\n");
+    getchar();
+
     printf("Digite seu estado: ");
-    scanf(" %c", &estado2);
+    scanf("%c", &estado2);
     printf("Digite seu codigo: ");
     scanf("%s", codigo2);
     printf("Digite o nome da sua cidade: ");
-    scanf("%s", nome2);
+    scanf("%s", nome2); 
     printf("Digite o numero da populacao: ");
     scanf("%d", &populacao2);
     printf("Digite sua area: ");
@@ -43,7 +52,17 @@ int main() {
     printf("Digite o numero de pontos turisticos presentes em sua cidade: ");
     scanf("%d", &turismo2);
 
-    printf("___DADOS DA CARTA 01___\n\n");
+    //aqui vamos fazer os calculos da densidade populacional e do pib per capita
+
+    float densi1 = (float) populacao1 / area1;
+    float densi2 = (float) populacao2 / area2; //a função da densidade populacional foi abreviada para poder ser melhor na hora de codar
+    float cap1 = (float) pib1 / populacao1;
+    float cap2 = (float) pib2 / populacao2; //a mesma coisa de aplica ao pib per capita
+
+
+    //agora começa a exibição dos dados da carta 01//
+  
+    printf("__DADOS DA CARTA 01__\n\n");
     printf("Seu estado e: %c\n", estado1);
     printf("Seu codigo e: %s\n", codigo1);
     printf("Sua cidade e: %s\n", nome1);
@@ -51,8 +70,11 @@ int main() {
     printf("O numero da sua area e: %.3f\n", area1);
     printf("Seu PIB e: %.3f\n", pib1);
     printf("O numero de pontos turisticos e: %d\n", turismo1);
+    printf("Sua densidade populacional e: %.3f\n", densi1);
+    printf("Seu PIB per capita e: %.3f\n", cap1);
 
-    printf("___DADOS DA CARTA 02___\n\n");
+    //agora vamos exibir a carta 02
+    printf("__DADOS DA CARTA 02__\n\n");
     printf("Seu estado e: %c\n", estado2);
     printf("Seu codigo e: %s\n", codigo2);
     printf("Sua cidade e: %s\n", nome2);
@@ -60,6 +82,8 @@ int main() {
     printf("O numero da sua area e: %.3f\n", area2);
     printf("Seu PIB e: %.3f\n", pib2);
     printf("O numero de pontos turisticos e: %d\n", turismo2);
+    printf("Sua densidade populacional e: %.3f\n", densi2);
+    printf("Seu PIB per capita e: %.3f\n", cap2);
 
     return 0;
 }
