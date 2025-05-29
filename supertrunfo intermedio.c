@@ -141,8 +141,8 @@ int main(){
                 else if (turismo2 > turismo1) pontos2++;
                 break;
             case 5:
-                if (densi1 > densi2) pontos1++;
-                else if (densi2 > densi1) pontos2++;
+                if (densi1 < densi2) pontos1++;
+                else if (densi2 < densi1) pontos2++;
                 break;
             case 6:
                 if (cap1 > cap2) pontos1++;
