@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main(){
 
-    char estado1, estado2;
+    int opcao, opcao2;
+    char estado1[2], estado2[2];
     char codigo1[4], codigo2[4]; 
     char nome1[50], nome2[50]; 
     unsigned long int populacao1, populacao2;
@@ -14,12 +17,18 @@ int main(){
     //os nomes foram abreviados para não dar muito trabalho para escrever o código//
 
     printf("__BEM VINDO AO SUPER TRUNFO__\n\n");
-
-    //aqui começa a inserção de dados da carta 1//
-
-    printf("_Comece Informando Os Dados Da Carta 01_\n");
+    printf("O que deseja fazer?\n");
+    printf("1. Jogar\n");
+    printf("2. Sair\n");
+    printf("Escolha: ");
+    scanf("%d", &opcao);
+    
+    switch (opcao)
+    {
+    case 1:
+        printf("_Comece Informando Os Dados Da Carta 01_\n");
     printf("Digite seu estado: ");
-    scanf("%c", &estado1);
+    scanf(" %s", estado1);
     printf("Digite seu codigo: ");
     scanf("%s", codigo1); 
     printf("Digite o nome da sua cidade: ");
@@ -38,7 +47,7 @@ int main(){
     getchar();
 
     printf("Digite seu estado: ");
-    scanf("%c", &estado2);
+    scanf(" %s", estado2);
     printf("Digite seu codigo: ");
     scanf("%s", codigo2);
     printf("Digite o nome da sua cidade: ");
@@ -64,7 +73,7 @@ int main(){
     //agora começa a exibição dos dados da carta 01//
   
     printf("__DADOS DA CARTA 01__\n\n");
-    printf("Seu estado e: %c\n", estado1);
+    printf("Seu estado e: %s\n", estado1);
     printf("Seu codigo e: %s\n", codigo1);
     printf("Sua cidade e: %s\n", nome1);
     printf("O numero da sua populacao e: %d\n", populacao1);
@@ -77,7 +86,7 @@ int main(){
 
     //agora vamos exibir a carta 02
     printf("__DADOS DA CARTA 02__\n\n");
-    printf("Seu estado e: %c\n", estado2);
+    printf("Seu estado e: %s\n", estado2);
     printf("Seu codigo e: %s\n", codigo2);
     printf("Sua cidade e: %s\n", nome2);
     printf("O numero da sua populacao e: %d\n", populacao2);
@@ -88,14 +97,78 @@ int main(){
     printf("Seu PIB per capita e: %.3f\n", cap2);
     printf("Seu Super Poder e de: %.3f\n", super2);
 
-    //hora de comparar e determinar o vencedor
+    printf("### Agora escolha o atributo que sera comparado para determinar o vencedor ###\n");
+    printf("1. Populacao\n");
+    printf("2. Area\n");
+    printf("3. PIB\n");
+    printf("4. Pontos turisticos\n");
+    printf("5. Densidade demografica\n");
+    printf("6. Super Poder\n");
+    printf("Escolha: \n");
+    scanf(" %d", &opcao2);
+        switch (opcao2)
+        {
+             case 1:
+             if(populacao1 > populacao2){
+             printf("A populacao da carta 1 e maior, CARTA 1 VENCEU!!!");
+             } else {
+             printf("A populacao da carta 2 e maior, CARTA 2 VENCEU!!!");
+             }
+             break;
+             case 2:
+             if(area1 > area2){
+             printf("A area da carta 1 e maior, CARTA 1 VENCEU!!!");
+             } else {
+                printf("A area da carta 2 e maior, CARTA 2 VENCEU!!!");
+             }
+             break;
+              case 3:
+             if(pib1 > pib2){
+             printf("O PIB da carta 1 e maior, CARTA 1 VENCEU!!!");
+             } else {
+                printf("O PIB da carta 2 e maior, CARTA 2 VENCEU!!!");
+             }
+             break;
+                case 4:
+              if(turismo1 > turismo2){
+                printf("Os pontos turisticos da carta 1 e maior, CARTA 1 VENCEU!!!");
+             } else {
+                printf("Os pontos turisticos da carta 2 e maior, CARTA 2 VENCEU!!!");
+              }
+                break;
+              case 5:
+             if(densi1 < densi2){
+             printf("A densidade populacional da carta 1 e menor, CARTA 1 VENCEU!!!");
+             } else {
+             printf("A densidade populacional da carta 2 e menor, CARTA 2 VENCEU!!!");
+             }
+             break;
+             case 6:
+             if(super1 > super2){
+             printf("O super poder da carta 1 e maior, CARTA 1 VENCEU!!!");
+             } else {
+             printf("O super poder da carta 2 e maior, CARTA 2 VENCEU!!!");
+             }
+             break;
+    
+             default:
+             printf("Opcao invalida!!! Fechando jogo...");
 
-    if(super1 > super2){
-        printf("O Grande Vencedor e: Carta 1\n");
-    }else{
-        printf("O Grande Vencedor e: Carta 2\n");
+             return 0;
+             break;
     }
 
+
+    case 2:
+    printf("Fechando o Jogo...");
+    return 0;
+        break;
+    
+    default:
+    printf("Opcao invalida! Fechando o jogo!");
+        break;
+    }
+  
    
 
     return 0;
