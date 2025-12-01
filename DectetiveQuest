@@ -1,0 +1,213 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TAM_HASH 20
+
+/* ============================================================
+                    ÁRVORE BINÁRIA – MAPA DA MANSÃO
+   ============================================================ */
+typedef struct NoMapa {
+    char nome[50];
+    struct NoMapa *esq, *dir;
+} NoMapa;
+
+NoMapa* criarNoMapa(char* nome) {
+    NoMapa* n = malloc(sizeof(NoMapa));
+    strcpy(n->nome, nome);
+    n->esq = n->dir = NULL;
+    return n;
+}
+
+NoMapa* inserirMapa(NoMapa* r, char* nome) {
+    if (!r) return criarNoMapa(nome);
+    if (strcmp(nome, r->nome) < 0)
+        r->esq = inserirMapa(r->esq, nome);
+    else
+        r->dir = inserirMapa(r->dir, nome);
+    return r;
+}
+
+void exibirMapa(NoMapa* r) {
+    if (!r) return;
+    printf(" - %s\n", r->nome);
+    exibirMapa(r->esq);
+    exibirMapa(r->dir);
+}
+
+void liberarMapa(NoMapa* r) {
+    if (!r) return;
+    liberarMapa(r->esq);
+    liberarMapa(r->dir);
+    free(r);
+}
+
+/* ============================================================
+                    ÁRVORE DE BUSCA – PISTAS
+   ============================================================ */
+typedef struct NoPista {
+    char pista[80];
+    struct NoPista *esq, *dir;
+} NoPista;
+
+NoPista* criarNoPista(char* pista) {
+    NoPista* n = malloc(sizeof(NoPista));
+    strcpy(n->pista, pista);
+    n->esq = n->dir = NULL;
+    return n;
+}
+
+NoPista* inserirPista(NoPista* r, char* pista) {
+    if (!r) return criarNoPista(pista);
+    if (strcmp(pista, r->pista) < 0)
+        r->esq = inserirPista(r->esq, pista);
+    else
+        r->dir = inserirPista(r->dir, pista);
+    return r;
+}
+
+void exibirPistas(NoPista* r) {
+    if (!r) return;
+    exibirPistas(r->esq);
+    printf(" > %s\n", r->pista);
+    exibirPistas(r->dir);
+}
+
+void liberarPistas(NoPista* r) {
+    if (!r) return;
+    liberarPistas(r->esq);
+    liberarPistas(r->dir);
+    free(r);
+}
+
+/* ============================================================
+                    TABELA HASH – pista → suspeito
+   ============================================================ */
+typedef struct HashItem {
+    char pista[80];
+    char suspeito[80];
+    struct HashItem *prox;
+} HashItem;
+
+HashItem* tabela[TAM_HASH];
+
+int hashFunc(char* str) {
+    int soma = 0;
+    for (int i = 0; str[i] != '\0'; i++)
+        soma += str[i];
+    return soma % TAM_HASH;
+}
+
+void hashInserir(char* pista, char* suspeito) {
+    int idx = hashFunc(pista);
+    HashItem* n = malloc(sizeof(HashItem));
+    strcpy(n->pista, pista);
+    strcpy(n->suspeito, suspeito);
+    n->prox = tabela[idx];
+    tabela[idx] = n;
+}
+
+char* hashBuscar(char* pista) {
+    int idx = hashFunc(pista);
+    HashItem* aux = tabela[idx];
+    while (aux) {
+        if (strcmp(aux->pista, pista) == 0)
+            return aux->suspeito;
+        aux = aux->prox;
+    }
+    return NULL;
+}
+
+void liberarHash() {
+    for (int i = 0; i < TAM_HASH; i++) {
+        HashItem* h = tabela[i];
+        while (h) {
+            HashItem* tmp = h;
+            h = h->prox;
+            free(tmp);
+        }
+    }
+}
+
+/* ============================================================
+                    MENU PRINCIPAL DO JOGO
+   ============================================================ */
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int main() {
+    NoMapa* mapa = NULL;
+    NoPista* pistas = NULL;
+
+    for (int i = 0; i < TAM_HASH; i++) tabela[i] = NULL;
+
+    /* ------------ MAPA DA MANSÃO (árvore binária) ------------ */
+    mapa = inserirMapa(mapa, "Hall");
+    mapa = inserirMapa(mapa, "Cozinha");
+    mapa = inserirMapa(mapa, "Biblioteca");
+    mapa = inserirMapa(mapa, "Sala de Jantar");
+    mapa = inserirMapa(mapa, "Escritorio");
+
+    /* ------------ TABELA DE SUSPEITOS (hash) ------------ */
+    hashInserir("Pegada suja", "Sr. Mostarda");
+    hashInserir("Luvas na mesa", "Dona Violeta");
+    hashInserir("Copo quebrado", "Sr. Marinho");
+    hashInserir("Carta rasgada", "Coronel Mostarda");
+
+    int op;
+    char buffer[100];
+
+    do {
+        printf("\n==================== DETECTIVE QUEST ====================\n");
+        printf("1 - Ver mapa da mansão\n");
+        printf("2 - Adicionar pista encontrada\n");
+        printf("3 - Listar pistas em ordem\n");
+        printf("4 - Consultar suspeito por pista\n");
+        printf("0 - Sair\n");
+        printf("==========================================================\n");
+        printf("Escolha: ");
+        scanf("%d", &op);
+        limparBuffer();
+
+        if (op == 1) {
+            printf("\n== MAPA DA MANSÃO ==\n");
+            exibirMapa(mapa);
+        }
+
+        else if (op == 2) {
+            printf("Digite a pista encontrada: ");
+            fgets(buffer, 100, stdin);
+            buffer[strcspn(buffer, "\n")] = 0;
+            pistas = inserirPista(pistas, buffer);
+            printf("Pista adicionada!\n");
+        }
+
+        else if (op == 3) {
+            printf("\n== PISTAS ENCONTRADAS ==\n");
+            exibirPistas(pistas);
+        }
+
+        else if (op == 4) {
+            printf("Digite a pista para buscar o suspeito: ");
+            fgets(buffer, 100, stdin);
+            buffer[strcspn(buffer, "\n")] = 0;
+
+            char* s = hashBuscar(buffer);
+            if (s)
+                printf("Suspeito encontrado: %s\n", s);
+            else
+                printf("Nenhum suspeito relacionado a essa pista.\n");
+        }
+
+    } while (op != 0);
+
+    /* ------------ LIBERAÇÃO DE MEMÓRIA ------------ */
+    liberarMapa(mapa);
+    liberarPistas(pistas);
+    liberarHash();
+
+    printf("\nEncerrando Detective Quest...\n");
+    return 0;
+}
